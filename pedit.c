@@ -8,6 +8,8 @@
 #define CTRL_KEY(k) ((k) & 0x1f)
 
 struct editorConfig {
+    int screenRows;
+    int screenCols;
     struct termios orig_termios;
 };
 
@@ -94,8 +96,15 @@ void editorProcessKeypress() {
     }
 }
 
+void initEditor() {
+    if (getWindowSize(&E.screenRows, &E.screenCols) == -1) {
+        die ("getWindowSize");
+    }
+}
+
 int main() {
     enableRawMode();
+    initEditor();
 
     while (1) {
         editorRefreshScreen();
