@@ -86,6 +86,11 @@ int getWindowSize(int *rows, int *cols) {
     }
 }
 
+struct abuf {
+    char *b;
+    int len;
+};
+
 void editorDrawRows() {
     int y;
     for (y = 0; y < E.screenRows; y++) {
