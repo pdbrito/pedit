@@ -102,6 +102,11 @@ void abAppend(struct abuf *ab, const char *s, int len) {
     ab->b = new;
     ab->len += len;
 }
+
+void abFree(struct abuf *ab) {
+    free(ab->b);
+}
+
 void editorDrawRows() {
     int y;
     for (y = 0; y < E.screenRows; y++) {
