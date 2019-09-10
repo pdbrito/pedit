@@ -91,6 +91,8 @@ struct abuf {
     int len;
 };
 
+#define ABUF_INIT {NULL, 0}
+
 void editorDrawRows() {
     int y;
     for (y = 0; y < E.screenRows; y++) {
