@@ -117,6 +117,12 @@ void editorDrawRows(struct abuf *ab) {
             int welcomeLen = snprintf(welcome, sizeof(welcome),
             "Pedit editor -- version %s", PEDIT_VERSION);
             if (welcomeLen > E.screenCols) welcomeLen = E.screenCols;
+            int padding = (E.screenCols - welcomeLen) / 2;
+            if (padding) {
+                abAppend(ab, "~", 1);
+                padding--;
+            }
+            while (padding--) abAppend(ab, " ", 1);
             abAppend(ab, welcome, welcomeLen);
         } else {
             abAppend(ab, "~", 1);
