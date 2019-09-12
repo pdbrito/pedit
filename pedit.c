@@ -155,6 +155,23 @@ void editorRefreshScreen() {
     abFree(&ab);
 }
 
+void editorMoveCursor(char key) {
+    switch (key) {
+    case 'h':
+        E.cx--;
+        break;
+    case 'l':
+        E.cx++;
+        break;
+    case 'j':
+        E.cy++;
+        break;
+    case 'k':
+        E.cy--;
+        break;
+    }
+}
+
 void editorProcessKeypress() {
     char c = editorReadKey();
 
@@ -163,6 +180,13 @@ void editorProcessKeypress() {
         write(STDOUT_FILENO, "\x1b[2J", 4);
         write(STDOUT_FILENO, "\x1b[H", 3);
         exit(0);
+        break;
+
+    case 'k':
+    case 'j':
+    case 'h':
+    case 'l':
+        editorMoveCursor(c);
         break;
     }
 }
