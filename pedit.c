@@ -185,20 +185,26 @@ void abFree(struct abuf *ab) {
 void editorDrawRows(struct abuf *ab) {
     int y;
     for (y = 0; y < E.screenRows; y++) {
-        if (y == E.screenRows / 3) {
-            char welcome[80];
-            int welcomeLen = snprintf(welcome, sizeof(welcome),
-            "Pedit editor -- version %s", PEDIT_VERSION);
-            if (welcomeLen > E.screenCols) welcomeLen = E.screenCols;
-            int padding = (E.screenCols - welcomeLen) / 2;
-            if (padding) {
+        if (y >= E.numrows) {
+            if (y == E.screenRows / 3) {
+                char welcome[80];
+                int welcomeLen = snprintf(welcome, sizeof(welcome),
+                "Pedit editor -- version %s", PEDIT_VERSION);
+                if (welcomeLen > E.screenCols) welcomeLen = E.screenCols;
+                int padding = (E.screenCols - welcomeLen) / 2;
+                if (padding) {
+                    abAppend(ab, "~", 1);
+                    padding--;
+                }
+                while (padding--) abAppend(ab, " ", 1);
+                abAppend(ab, welcome, welcomeLen);
+            } else {
                 abAppend(ab, "~", 1);
-                padding--;
             }
-            while (padding--) abAppend(ab, " ", 1);
-            abAppend(ab, welcome, welcomeLen);
         } else {
-            abAppend(ab, "~", 1);
+            int len = E.row.size;
+            if (len > E.screenCols) len = E.screenCols;
+            abAppend(ab, E.row.chars, len);
         }
 
         abAppend(ab, "\x1b[K", 3);
