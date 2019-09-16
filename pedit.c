@@ -304,7 +304,7 @@ void initEditor() {
     }
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     enableRawMode();
     initEditor();
     editorOpen();
