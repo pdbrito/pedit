@@ -197,7 +197,7 @@ void editorDrawRows(struct abuf *ab) {
     int y;
     for (y = 0; y < E.screenRows; y++) {
         if (y >= E.numrows) {
-            if (y == E.screenRows / 3) {
+            if (E.numrows == 0 && y == E.screenRows / 3) {
                 char welcome[80];
                 int welcomeLen = snprintf(welcome, sizeof(welcome),
                 "Pedit editor -- version %s", PEDIT_VERSION);
