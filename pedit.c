@@ -33,6 +33,7 @@ typedef struct erow {
 
 struct editorConfig {
     int cx, cy;
+    int rx;
     int rowOff;
     int colOff;
     int screenRows;
@@ -380,6 +381,7 @@ void editorProcessKeypress() {
 void initEditor() {
     E.cx = 0;
     E.cy = 0;
+    E.rx = 0;
     E.rowOff = 0;
     E.colOff = 0;
     E.numrows = 0;
