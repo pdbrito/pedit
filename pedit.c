@@ -292,11 +292,8 @@ void editorDrawRows(struct abuf *ab) {
         }
 
         abAppend(ab, "\x1b[K", 3);
-        if (y < E.screenRows - 1) {
-            abAppend(ab, "\r\n", 2);
-        }
+        abAppend(ab, "\r\n", 2);
     }
-
 }
 
 void editorRefreshScreen() {
@@ -414,6 +411,7 @@ void initEditor() {
     if (getWindowSize(&E.screenRows, &E.screenCols) == -1) {
         die ("getWindowSize");
     }
+    E.screenRows -= 1;
 }
 
 int main(int argc, char *argv[]) {
