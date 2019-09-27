@@ -323,6 +323,7 @@ void editorDrawStatusBar(struct abuf *ab) {
         }
     }
     abAppend(ab, "\x1b[m", 3);
+    abAppend(ab, "\r\n", 2);
 }
 
 void editorRefreshScreen() {
@@ -452,7 +453,7 @@ void initEditor() {
     if (getWindowSize(&E.screenRows, &E.screenCols) == -1) {
         die ("getWindowSize");
     }
-    E.screenRows -= 1;
+    E.screenRows -= 2;
 }
 
 int main(int argc, char *argv[]) {
