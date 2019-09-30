@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -281,12 +282,14 @@ void editorSave() {
             if (write(fd, buf, len) == len) {
                     close(fd);
                     free(buf);
+                    editorSetStatusMessage("%d bytes written to disk", len);
                     return;
             }
         }
         close(fd);
     }
     free(buf);
+    editorSetStatusMessage("Save failed! I/O error: %s", strerror(errno));
 }
 
 struct abuf {
