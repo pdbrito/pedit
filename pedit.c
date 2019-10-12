@@ -401,10 +401,20 @@ void editorFindCallback(char *query, int key) {
 }
 
 void editorFind() {
+    int saved_cx = E.cx;
+    int saved_cy = E.cy;
+    int saved_colOff = E.colOff;
+    int saved_rowOff = E.rowOff;
+
     char *query = editorPrompt("Search: %s (ESC to cancel)", editorFindCallback);
 
     if (query) {
         free(query);
+    } else {
+        E.cx = saved_cx;
+        E.cy = saved_cy;
+        E.colOff = saved_colOff;
+        E.rowOff = saved_rowOff;
     }
 }
 
