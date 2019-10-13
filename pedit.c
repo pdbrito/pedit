@@ -30,6 +30,11 @@ enum editorKey {
     PAGE_DOWN
 };
 
+enum editorHighlight {
+    HL_NORMAL = 0,
+    HL_NUMBER
+};
+
 typedef struct erow {
     int size;
     int rsize;
