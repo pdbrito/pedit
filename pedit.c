@@ -36,6 +36,8 @@ enum editorHighlight {
     HL_MATCH
 };
 
+#define HL_HIGHLIGHT_NUMBERS (1<<0)
+
 struct editorSyntax {
     char *filetype;
     char **filematch;
