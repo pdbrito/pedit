@@ -44,7 +44,7 @@ struct editorSyntax {
     int flags;
 };
 
-char *C_HL_extensions[] = { ".c", ".h", ".cpp", NULL};
+char *C_HL_extensions[] = { ".c", ".h", ".cpp"};
 
 struct editorSyntax HLDB[] = {
     {
@@ -53,6 +53,8 @@ struct editorSyntax HLDB[] = {
         HL_HIGHLIGHT_NUMBERS
     }
 };
+
+#define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
 
 typedef struct erow {
     int size;
