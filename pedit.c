@@ -696,6 +696,7 @@ void editorDrawRows(struct abuf *ab) {
             char *c = &E.row[fileRow].render[E.colOff];
             unsigned char *hl = &E.row[fileRow].hl[E.colOff];
             int j;
+            int current_color = -1;
             for (j = 0; j < len; j++) {
                 if (iscntrl(c[j])) {
                     char sym = (c[j] <= 26) ? '@' + c[j] : '?';
@@ -703,13 +704,19 @@ void editorDrawRows(struct abuf *ab) {
                     abAppend(ab, &sym, 1);
                     abAppend(ab, "\x1b[m", 3);
                 } else if (hl[j] == HL_NORMAL) {
-                    abAppend(ab, "\x1b[39m", 5);
+                    if (current_color != -1) {
+                        abAppend(ab, "\x1b[39m", 5);
+                        current_color = -1;
+                    }
                     abAppend(ab, &c[j], 1);
                 } else {
                     int color = editorSyntaxToColor(hl[j]);
-                    char buf[16];
-                    int clen = snprintf(buf, sizeof(buf), "\x1b[%dm", color);
-                    abAppend(ab, buf, clen);
+                    if (color != current_color) {
+                        current_color = color;
+                        char buf[16];
+                        int clen = snprintf(buf, sizeof(buf), "\x1b[%dm", color);
+                        abAppend(ab, buf, clen);
+                    }
                     abAppend(ab, &c[j], 1);
                 }
             }
